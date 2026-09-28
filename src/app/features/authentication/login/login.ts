@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
+import { AuthenticationLayout } from '../authentication-layout/authentication-layout';
 
 @Component({
-  imports: [],
+  imports: [AuthenticationLayout],
   selector: 'app-login',
   styleUrl: './login.scss',
   templateUrl: './login.html',

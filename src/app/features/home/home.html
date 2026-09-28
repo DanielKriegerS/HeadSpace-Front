@@ -1,36 +1,198 @@
-<main>
-  <h1>Home</h1>
+<div class="home-shell">
+  <app-navigation />
 
-  @if (authStore.isAuthenticated()) {
-    @if (authStore.currentUser(); as currentUser) {
-      <p>
-        Bem-vindo ao HeadSpace,
-        <strong>{{ currentUser.username }}</strong>.
-      </p>
+  <main class="home">
+    <section
+      class="home__hero"
+      aria-labelledby="home-title">
+
+      <div class="home__hero-content">
+        <p class="home__eyebrow">
+          Literatura, arte e cultura
+        </p>
+
+        <h1 id="home-title">
+          Um espaço para histórias que permanecem.
+        </h1>
+
+        @if (
+          authStore.isAuthenticated() &&
+          authStore.currentUser();
+          as currentUser
+        ) {
+          <p class="home__introduction">
+            Bem-vindo ao HeadSpace,
+            <strong>{{ currentUser.username }}</strong>.
+            Sua sessão está ativa e este é o começo da sua
+            experiência na plataforma.
+          </p>
+
+          <p class="home__supporting-text">
+            Novos espaços dedicados à comunidade e à produção
+            cultural serão disponibilizados nas próximas etapas.
+          </p>
+        } @else {
+          <p class="home__introduction">
+            O HeadSpace está sendo construído para aproximar
+            pessoas por meio da literatura, do cinema, da música
+            e de outras formas de expressão cultural.
+          </p>
+
+          <a
+            class="home__primary-action"
+            routerLink="/login">
+            Entrar no HeadSpace
+          </a>
+        }
+      </div>
+
+      <aside
+        class="home__editorial-card"
+        aria-label="Manifesto HeadSpace">
+        <span
+          class="home__editorial-mark"
+          aria-hidden="true">
+          “
+        </span>
+
+        <blockquote>
+          Toda obra abre uma nova forma de observar o mundo.
+        </blockquote>
+
+        <p>
+          O HeadSpace começa como um espaço de encontro entre
+          ideias, narrativas e diferentes expressões culturais.
+        </p>
+      </aside>
+    </section>
+
+    @if (authStore.operationError(); as errorMessage) {
+      <section
+        class="home__error"
+        role="alert"
+        aria-live="assertive">
+        <strong>Não foi possível concluir a operação.</strong>
+        <span>{{ errorMessage }}</span>
+      </section>
     }
 
-    <button
-      type="button"
-      [disabled]="authStore.logoutInProgress()"
-      (click)="logout()">
-      @if (authStore.logoutInProgress()) {
-        Encerrando sessão...
-      } @else {
-        Sair
-      }
-    </button>
-  } @else {
-    <p>
-      Você está acessando o HeadSpace como visitante.
-    </p>
+    <section
+      class="home__themes"
+      aria-labelledby="themes-title">
+      <div class="home__section-heading">
+        <p class="home__eyebrow">
+          Horizontes
+        </p>
 
-    <a routerLink="/login">
-      Entrar
-    </a>
-  }
+        <h2 id="themes-title">
+          Cultura em diferentes linguagens
+        </h2>
 
-@if (authStore.operationError(); as errorMessage) {
-  <p role="alert">
-    {{ errorMessage }}
-  </p>
-}
+        <p>
+          Estes temas representam a visão futura da plataforma.
+          As funcionalidades serão construídas gradualmente.
+        </p>
+      </div>
+
+      <div class="home__theme-grid">
+        <article class="theme-card">
+          <span
+            class="theme-card__number"
+            aria-hidden="true">
+            01
+          </span>
+
+          <h3>Literatura</h3>
+
+          <p>
+            Histórias, ensaios e ideias que atravessam diferentes
+            épocas e perspectivas.
+          </p>
+        </article>
+
+        <article class="theme-card">
+          <span
+            class="theme-card__number"
+            aria-hidden="true">
+            02
+          </span>
+
+          <h3>Cinema</h3>
+
+          <p>
+            Narrativas visuais e conversas sobre as obras que
+            ajudam a interpretar o presente.
+          </p>
+        </article>
+
+        <article class="theme-card">
+          <span
+            class="theme-card__number"
+            aria-hidden="true">
+            03
+          </span>
+
+          <h3>Música</h3>
+
+          <p>
+            Sons, movimentos e contextos que conectam memória,
+            identidade e criação.
+          </p>
+        </article>
+
+        <article class="theme-card">
+          <span
+            class="theme-card__number"
+            aria-hidden="true">
+            04
+          </span>
+
+          <h3>Cultura</h3>
+
+          <p>
+            Um olhar amplo para expressões artísticas, sociais e
+            criativas.
+          </p>
+        </article>
+
+        <article class="theme-card">
+          <span
+            class="theme-card__number"
+            aria-hidden="true">
+            05
+          </span>
+
+          <h3>Autores independentes</h3>
+
+          <p>
+            Um futuro espaço para descobrir vozes e projetos
+            autorais.
+          </p>
+        </article>
+
+        <article class="theme-card">
+          <span
+            class="theme-card__number"
+            aria-hidden="true">
+            06
+          </span>
+
+          <h3>Livros digitais</h3>
+
+          <p>
+            Publicações digitais farão parte de uma próxima etapa
+            da plataforma.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="home__footer">
+      <strong>HeadSpace</strong>
+
+      <span>
+        Uma plataforma cultural em construção.
+      </span>
+    </footer>
+  </main>
+</div>

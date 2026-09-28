@@ -1,15 +1,27 @@
-<section class="login-container">
+<app-authentication-layout
+  title="Bem-vindo ao HeadSpace"
+  description="Entre para acessar sua experiência pessoal na plataforma.">
 
-  <h1>HeadSpace</h1>
+  <section class="login">
+    <button
+      class="login__google-button"
+      type="button"
+      (click)="loginWithGoogle()">
 
-  <p>
-    Literatura, cinema, música e cultura em um único lugar.
-  </p>
+      <span
+        class="login__google-symbol"
+        aria-hidden="true">
+        G
+      </span>
 
-  <button
-    type="button"
-    (click)="loginWithGoogle()">
-    Entrar com Google
-  </button>
+      <span>
+        Entrar com Google
+      </span>
+    </button>
 
-</section>
+    <p class="login__security-note">
+      A autenticação é processada de forma segura pelo Google.
+      O HeadSpace não recebe nem armazena sua senha.
+    </p>
+  </section>
+</app-authentication-layout>

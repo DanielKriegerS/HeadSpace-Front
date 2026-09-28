@@ -1,0 +1,149 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.authentication-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(20rem, 0.9fr)
+    minmax(24rem, 1.1fr);
+
+  min-height: 100vh;
+}
+
+.authentication-layout__presentation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: clamp(2rem, 5vw, 5rem);
+
+  color: var(--hs-color-cream-100);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(36, 21, 47, 0.96),
+      rgba(74, 44, 90, 0.94)
+    );
+}
+
+.authentication-layout__brand {
+  display: inline-flex;
+  gap: 0.875rem;
+  align-items: center;
+
+  width: fit-content;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.authentication-layout__brand-symbol {
+  display: grid;
+  place-items: center;
+
+  width: 3rem;
+  height: 3rem;
+
+  color: var(--hs-color-purple-950);
+  background-color: var(--hs-color-gold-500);
+  border-radius: 50%;
+}
+
+.authentication-layout__editorial-content {
+  max-width: 38rem;
+}
+
+.authentication-layout__eyebrow {
+  margin: 0 0 1rem;
+
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  color: var(--hs-color-pink-400);
+}
+
+.authentication-layout__statement {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 4vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.authentication-layout__content {
+  display: grid;
+  place-items: center;
+
+  padding: clamp(1.5rem, 5vw, 5rem);
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(233, 168, 198, 0.28),
+      transparent 24rem
+    ),
+    var(--hs-color-background);
+}
+
+.authentication-layout__card {
+  width: min(100%, 31rem);
+  padding: clamp(1.75rem, 4vw, 3rem);
+
+  background-color: rgba(255, 253, 251, 0.9);
+  border: 1px solid var(--hs-color-border);
+  border-radius: var(--hs-radius-lg);
+
+  box-shadow: var(--hs-shadow-md);
+}
+
+.authentication-layout__header h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+
+  color: var(--hs-color-purple-950);
+}
+
+.authentication-layout__header p {
+  margin: 1rem 0 0;
+
+  line-height: 1.7;
+
+  color: var(--hs-color-text-secondary);
+}
+
+.authentication-layout__body {
+  margin-top: 2rem;
+}
+
+@media (max-width: 47.99rem) {
+  .authentication-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .authentication-layout__presentation {
+    min-height: 16rem;
+    padding: 1.5rem;
+  }
+
+  .authentication-layout__statement {
+    max-width: 18ch;
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .authentication-layout__content {
+    place-items: start center;
+    padding: 2rem 1rem 3rem;
+  }
+}

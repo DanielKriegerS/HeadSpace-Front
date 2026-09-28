@@ -1,0 +1,55 @@
+<main class="authentication-layout">
+  <section
+    class="authentication-layout__presentation"
+    aria-labelledby="authentication-brand-title">
+
+    <a
+      class="authentication-layout__brand"
+      routerLink="/home"
+      aria-label="Voltar para a página inicial">
+      <span
+        class="authentication-layout__brand-symbol"
+        aria-hidden="true">
+        H
+      </span>
+
+      <span id="authentication-brand-title">
+        HeadSpace
+      </span>
+    </a>
+
+    <div class="authentication-layout__editorial-content">
+      <p class="authentication-layout__eyebrow">
+        Literatura, arte e cultura
+      </p>
+
+      <p class="authentication-layout__statement">
+        Histórias aproximam pessoas e oferecem novas formas de
+        observar o mundo.
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="authentication-layout__content"
+    aria-labelledby="authentication-title">
+
+    <div class="authentication-layout__card">
+      <header class="authentication-layout__header">
+        <h1 id="authentication-title">
+          {{ title() }}
+        </h1>
+
+        @if (description(); as descriptionText) {
+          <p>
+            {{ descriptionText }}
+          </p>
+        }
+      </header>
+
+      <div class="authentication-layout__body">
+        <ng-content />
+      </div>
+    </div>
+  </section>
+</main>

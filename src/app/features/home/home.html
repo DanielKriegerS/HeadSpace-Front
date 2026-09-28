@@ -1,0 +1,36 @@
+<main>
+  <h1>Home</h1>
+
+  @if (authStore.isAuthenticated()) {
+    @if (authStore.currentUser(); as currentUser) {
+      <p>
+        Bem-vindo ao HeadSpace,
+        <strong>{{ currentUser.username }}</strong>.
+      </p>
+    }
+
+    <button
+      type="button"
+      [disabled]="authStore.logoutInProgress()"
+      (click)="logout()">
+      @if (authStore.logoutInProgress()) {
+        Encerrando sessão...
+      } @else {
+        Sair
+      }
+    </button>
+  } @else {
+    <p>
+      Você está acessando o HeadSpace como visitante.
+    </p>
+
+    <a routerLink="/login">
+      Entrar
+    </a>
+  }
+
+@if (authStore.operationError(); as errorMessage) {
+  <p role="alert">
+    {{ errorMessage }}
+  </p>
+}

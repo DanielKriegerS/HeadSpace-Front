@@ -1,0 +1,131 @@
+<aside
+  class="navigation"
+  [class.navigation--collapsed]="isCollapsed()"
+  aria-label="Navegação principal">
+
+  <div class="navigation__header">
+    <a
+      class="navigation__brand"
+      routerLink="/home"
+      aria-label="HeadSpace, página inicial">
+      <span
+        class="navigation__brand-symbol"
+        aria-hidden="true">
+        H
+      </span>
+
+      @if (!isCollapsed()) {
+        <span class="navigation__brand-name">
+          HeadSpace
+        </span>
+      }
+    </a>
+
+    <button
+      class="navigation__toggle"
+      type="button"
+      [attr.aria-expanded]="!isCollapsed()"
+      [attr.aria-label]="
+        isCollapsed()
+          ? 'Expandir navegação'
+          : 'Recolher navegação'
+      "
+      (click)="toggleNavigation()">
+      <span aria-hidden="true">
+        {{ isCollapsed() ? '‹' : '›' }}
+      </span>
+    </button>
+  </div>
+
+  <nav class="navigation__links">
+    <a
+      class="navigation__link"
+      routerLink="/home"
+      routerLinkActive="navigation__link--active"
+      ariaCurrentWhenActive="page"
+      cursor="pointer">
+      <span
+        class="navigation__link-icon"
+        aria-hidden="true">
+       ⌂
+      </span>
+
+      @if (!isCollapsed()) {
+        <span>Início</span>
+      }
+    </a>
+
+    @if (!authStore.isAuthenticated()) {
+      <a
+        class="navigation__link"
+        routerLink="/login"
+        routerLinkActive="navigation__link--active"
+        ariaCurrentWhenActive="page"
+        cursor="pointer">
+        <span
+          class="navigation__link-icon"
+          aria-hidden="true">
+          ↪
+        </span>
+
+        @if (!isCollapsed()) {
+          <span>Entrar</span>
+        }
+      </a>
+    }
+  </nav>
+
+  <div class="navigation__footer">
+    @if (
+      authStore.isAuthenticated() &&
+      authStore.currentUser();
+      as currentUser
+    ) {
+      <div class="navigation__user">
+        <div
+          class="navigation__avatar"
+          aria-hidden="true">
+          {{ currentUser.username.charAt(0).toUpperCase() }}
+        </div>
+
+        @if (!isCollapsed()) {
+          <div class="navigation__user-information">
+            <strong>{{ currentUser.username }}</strong>
+            <span>Sessão ativa</span>
+          </div>
+        }
+      </div>
+
+      <button
+        class="navigation__logout"
+        type="button"
+        [disabled]="authStore.logoutInProgress()"
+        [attr.aria-label]="
+          authStore.logoutInProgress()
+            ? 'Encerrando sessão'
+            : 'Sair da conta'
+        "
+        (click)="logout()">
+        <span aria-hidden="true">
+          ↩
+        </span>
+
+        @if (!isCollapsed()) {
+          <span>
+            @if (authStore.logoutInProgress()) {
+              Encerrando...
+            } @else {
+              Sair
+            }
+          </span>
+        }
+      </button>
+    } @else {
+      @if (!isCollapsed()) {
+        <p class="navigation__visitor">
+          Explore ideias, histórias e expressões culturais.
+        </p>
+      }
+    }
+  </div>
+</aside>

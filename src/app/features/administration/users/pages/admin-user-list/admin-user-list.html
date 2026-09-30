@@ -1,0 +1,151 @@
+<section
+  class="admin-users"
+  aria-labelledby="admin-users-title">
+
+  <header class="admin-users__header">
+    <div>
+      <p class="admin-users__eyebrow">
+        Administração
+      </p>
+
+      <h2 id="admin-users-title">
+        Gerenciamento de usuários
+      </h2>
+
+      <p>
+        Consulte usuários cadastrados e acompanhe o estado
+        atual das contas.
+      </p>
+    </div>
+
+    @if (page(); as userPage) {
+      <div
+        class="admin-users__total"
+        aria-live="polite">
+        <strong>
+          {{ userPage.totalElements }}
+        </strong>
+
+        <span>
+          @if (userPage.totalElements === 1) {
+            usuário encontrado
+          } @else {
+            usuários encontrados
+          }
+        </span>
+      </div>
+    }
+  </header>
+
+  <app-admin-user-filters
+    [filters]="filters()"
+    (filtersChanged)="onFiltersChanged($event)" />
+
+  @if (loading()) {
+    <div
+      class="admin-users__loading"
+      role="status"
+      aria-live="polite">
+      <span
+        class="admin-users__spinner"
+        aria-hidden="true">
+      </span>
+
+      <span>
+        Carregando usuários...
+      </span>
+    </div>
+  } @else if (error(); as errorMessage) {
+    <section
+      class="admin-users__error"
+      role="alert"
+      aria-live="assertive">
+
+      <h3>
+        Não foi possível carregar a listagem
+      </h3>
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+      @if (correlationId(); as supportId) {
+        <details>
+          <summary>
+            Informações para suporte
+          </summary>
+
+          <p>
+            Código de correlação:
+            <code>{{ supportId }}</code>
+          </p>
+        </details>
+      }
+
+      <button
+        type="button"
+        (click)="retry()">
+        Tentar novamente
+      </button>
+    </section>
+  } @else if (
+    initialized() &&
+    page();
+    as userPage
+  ) {
+    @if (userPage.content.length > 0) {
+      <app-admin-user-table
+        [users]="userPage.content"
+        [sortBy]="filters().sortBy"
+        [direction]="filters().direction"
+        (sortChanged)="onSortChanged($event)" />
+
+      <nav
+        class="admin-users__pagination"
+        aria-label="Paginação de usuários">
+
+        <button
+          type="button"
+          [disabled]="userPage.first"
+          (click)="goToPreviousPage()">
+          Página anterior
+        </button>
+
+        <span aria-live="polite">
+          Página
+          <strong>
+            {{ userPage.page + 1 }}
+          </strong>
+          de
+          <strong>
+            {{ userPage.totalPages || 1 }}
+          </strong>
+        </span>
+
+        <button
+          type="button"
+          [disabled]="userPage.last"
+          (click)="goToNextPage()">
+          Próxima página
+        </button>
+      </nav>
+    } @else {
+      <section class="admin-users__empty">
+        <span
+          class="admin-users__empty-symbol"
+          aria-hidden="true">
+          ◌
+        </span>
+
+        <h3>
+          Nenhum usuário encontrado
+        </h3>
+
+        <p>
+          Não existem usuários correspondentes aos filtros
+          selecionados.
+        </p>
+      </section>
+    }
+  }
+</section>

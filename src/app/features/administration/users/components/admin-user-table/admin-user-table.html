@@ -1,0 +1,151 @@
+<div class="user-table-container">
+  <table class="user-table">
+    <caption class="user-table__caption">
+      Usuários cadastrados na HeadSpace
+    </caption>
+
+    <thead>
+      <tr>
+        <th scope="col">
+          <button
+            type="button"
+            (click)="toggleSort('username')"
+            [attr.aria-label]="
+              'Ordenar por usuário. ' +
+              getSortLabel('username')
+            ">
+            Usuário
+
+            <span aria-hidden="true">
+              {{ getSortSymbol('username') }}
+            </span>
+          </button>
+        </th>
+
+        <th scope="col">
+          <button
+            type="button"
+            (click)="toggleSort('email')"
+            [attr.aria-label]="
+              'Ordenar por e-mail. ' +
+              getSortLabel('email')
+            ">
+            E-mail
+
+            <span aria-hidden="true">
+              {{ getSortSymbol('email') }}
+            </span>
+          </button>
+        </th>
+
+        <th scope="col">
+          <button
+            type="button"
+            (click)="toggleSort('status')"
+            [attr.aria-label]="
+              'Ordenar por status. ' +
+              getSortLabel('status')
+            ">
+            Status
+
+            <span aria-hidden="true">
+              {{ getSortSymbol('status') }}
+            </span>
+          </button>
+        </th>
+
+        <th scope="col">
+          Roles
+        </th>
+
+        <th scope="col">
+          <button
+            type="button"
+            (click)="toggleSort('createdAt')"
+            [attr.aria-label]="
+              'Ordenar por data de criação. ' +
+              getSortLabel('createdAt')
+            ">
+            Criado em
+
+            <span aria-hidden="true">
+              {{ getSortSymbol('createdAt') }}
+            </span>
+          </button>
+        </th>
+
+        <th scope="col">
+          Ações
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (user of users(); track user.id) {
+        <tr>
+          <td data-label="Usuário">
+            <div class="user-table__identity">
+              @if (shouldShowImage(user)) {
+                <img
+                  [src]="user.profileImageUrl"
+                  [alt]="'Foto de perfil de ' + user.username"
+                  (error)="markImageAsFailed(user.id)">
+              } @else {
+                <span
+                  class="user-table__avatar"
+                  aria-hidden="true">
+                  {{ getInitial(user.username) }}
+                </span>
+              }
+
+              <strong>
+                {{ user.username }}
+              </strong>
+            </div>
+          </td>
+
+          <td data-label="E-mail">
+            <span class="user-table__email">
+              {{ user.email }}
+            </span>
+          </td>
+
+          <td data-label="Status">
+            <app-admin-user-status-badge
+              [status]="user.status" />
+          </td>
+
+          <td data-label="Roles">
+            <div class="user-table__roles">
+              @for (role of user.roles; track role) {
+                <span>
+                  {{ translateRole(role) }}
+                </span>
+              }
+            </div>
+          </td>
+
+          <td data-label="Criado em">
+            <time
+              [attr.datetime]="user.createdAt"
+              [attr.title]="user.createdAt | date:'dd/MM/yyyy HH:mm:ss'">
+            {{ user.createdAt | date:'dd/MM/yyyy HH:mm' }}
+            </time>
+          </td>
+
+          <td data-label="Ações">
+            <a
+              class="user-table__details"
+              [routerLink]="[
+                '/admin/usuarios',
+                user.id
+              ]"
+              [attr.aria-label]="'Ver detalhes do usuário ' + user.username">
+              Detalhes
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

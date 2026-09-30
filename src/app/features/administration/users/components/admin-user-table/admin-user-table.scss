@@ -1,0 +1,365 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.user-table-container {
+  overflow: hidden;
+
+  width: 100%;
+
+  background-color: var(--hs-color-surface);
+  border: 1px solid var(--hs-color-border);
+  border-radius: var(--hs-radius-md);
+
+  box-shadow: var(--hs-shadow-sm);
+}
+
+.user-table {
+  width: 100%;
+
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.user-table__caption {
+  position: absolute;
+
+  overflow: hidden;
+
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+
+  border: 0;
+}
+
+.user-table thead {
+  background-color: rgba(250, 218, 221, 0.3);
+}
+
+.user-table th,
+.user-table td {
+  padding: 1rem 1.125rem;
+
+  text-align: left;
+  vertical-align: middle;
+
+  border-bottom: 1px solid var(--hs-color-border);
+}
+
+.user-table th {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+
+  color: var(--hs-color-purple-800);
+}
+
+/*
+ * Distribuição das colunas no desktop.
+ */
+.user-table th:nth-child(1) {
+  width: 21%;
+}
+
+.user-table th:nth-child(2) {
+  width: 24%;
+}
+.user-table th:nth-child(3) {
+  width: 12%;
+}
+
+.user-table th:nth-child(4) {
+  width: 17%;
+}
+
+.user-table th:nth-child(5) {
+  width: 16%;
+}
+
+.user-table th:nth-child(6) {
+  width: 10%;
+}
+
+.user-table th button {
+  cursor: pointer;
+
+  display: inline-flex;
+  gap: 0.45rem;
+  align-items: center;
+
+  min-height: 2rem;
+  padding: 0.25rem 0;
+
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0.25rem;
+}
+
+.user-table th button:hover {
+  color: var(--hs-color-danger);
+}
+
+.user-table th button:focus-visible {
+  outline: 0.1875rem solid var(--hs-color-gold-500);
+  outline-offset: 0.1875rem;
+}
+
+.user-table tbody tr {
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.user-table tbody tr:hover {
+  background-color: rgba(250, 218, 221, 0.16);
+}
+
+.user-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.user-table__identity {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  min-width: 0;
+}
+
+.user-table__identity img,
+.user-table__avatar {
+  display: grid;
+  flex: 0 0 2.75rem;
+  place-items: center;
+
+  width: 2.75rem;
+  height: 2.75rem;
+
+  border-radius: 50%;
+}
+
+.user-table__identity img {
+  object-fit: cover;
+
+  border: 2px solid rgba(142, 93, 135, 0.18);
+}
+
+.user-table__avatar {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  font-weight: 800;
+
+  color: var(--hs-color-purple-950);
+  background:
+    linear-gradient(
+      145deg,
+      var(--hs-color-pink-200),
+      var(--hs-color-pink-400)
+    );
+
+  border: 2px solid rgba(142, 93, 135, 0.14);
+}
+
+.user-table__identity stro*g {
+  overflow: hidden;
+
+  color: var(--hs-color-purple-950);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-table__email {
+  display: block;
+  overflow: hidden;
+  color: var(--hs-color-text-secondary);
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-table__roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.user-table__roles span {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 1.75rem;
+  padding: 0.25rem 0.55rem;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  color: var(--hs-color-purple-800);
+  background-color: rgba(142, 93, 135, 0.1);
+
+  border: 1px solid rgba(142, 93, 135, 0.16);
+  border-radius: 999px;
+}
+
+.user-table__details {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 2.25rem;
+  padding: 0.45rem 0.75rem;
+
+  font-size: 0.8125rem;
+  font-weight: 800;
+
+  color: var(--hs-color-purple-800);
+  text-decoration: none;
+
+  background-color: transparent;
+  border: 1px solid var(--hs-color-purple-500);
+  border-radius: 999px;
+
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.user-table__details:hover {
+  color: var(--hs-color-cream-100);
+  background-color: var(--hs-color-purple-800);
+  border-color: var(--hs-color-purple-800);
+}
+
+.user-table__details:focus-visible {
+  outline: 0.1875rem solid var(--hs-color-gold-500);
+  outline-offset: 0.1875rem;
+}
+
+/*
+ * Tablet e telas menores:
+ * cada linha é convertida visualmente em card.
+ */
+@media (max-width: 74rem) {
+  .user-table-container {
+    overflow: visible;
+
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .user-table,
+  .user-table tbody,
+  .user-table tr,
+  .user-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .user-table {
+    table-layout: auto;
+  }
+
+  .user-table thead {
+    position: absolute;
+
+    overflow: hidden;
+
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+
+    border: 0;
+  }
+
+  .user-table tbody {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .user-table tr {
+    padding: 1.25rem;
+
+    background-color: var(--hs-color-surface);
+    border: 1px solid var(--hs-color-border);
+    border-radius: var(--hs-radius-md);
+
+    box-shadow: var(--hs-shadow-sm);
+  }
+
+  .user-table tbody tr:hover {
+    background-color: var(--hs-color-surface);
+    box-shadow: var(--hs-shadow-md);
+  }
+
+  .user-table td {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 0.45fr) minmax(0, 1fr);
+    gap: 1rem;
+
+    padding: 0.75rem 0;
+
+    border-bottom: 1px solid var(--hs-color-border);
+  }
+
+  .user-table td::before {
+    content: attr(data-label);
+
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+
+    color: var(--hs-color-purple-500);
+  }
+*  .user-table td:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .user-table__identity strong,
+  .user-table__email {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .user-table__details {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 47.99rem) {
+  .user-table tbody {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 25rem) {
+  .user-table tr {
+    padding: 1rem;
+  }
+
+  .user-table td {
+    grid-template-columns: 1fr;
+    gap: 0.375rem;
+  }
+}

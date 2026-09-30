@@ -1,0 +1,286 @@
+<section
+  class="user-details"
+  aria-labelledby="user-details-title">
+
+  <header class="user-details__page-header">
+    <div>
+      <a
+        class="user-details__back"
+        routerLink="/admin/usuarios">
+        <span aria-hidden="true">←</span>
+        Voltar para usuários
+      </a>
+
+      <p class="user-details__eyebrow">
+        Administração
+      </p>
+
+      <h2 id="user-details-title">
+        Detalhes do usuário
+      </h2>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div
+      class="user-details__loading"
+      role="status"
+      aria-live="polite">
+
+      <span
+        class="user-details__spinner"
+        aria-hidden="true">
+      </span>
+
+      <span>
+        Carregando usuário...
+      </span>
+    </div>
+  } @else if (notFound()) {
+    <section
+      class="user-details__state"
+      aria-labelledby="user-not-found-title">
+
+      <span
+        class="user-details__state-symbol"
+        aria-hidden="true">
+        ◌
+      </span>
+
+      <h3 id="user-not-found-title">
+        Usuário não encontrado
+      </h3>
+
+      <p>
+        O usuário solicitado não existe ou não está mais
+        disponível.
+      </p>
+
+      <a routerLink="/admin/usuarios">
+        Voltar para a listagem
+      </a>
+    </section>
+  } @else if (error(); as errorMessage) {
+    <section
+      class="user-details__state"
+      role="alert"
+      aria-live="assertive">
+
+      <h3>
+        Não foi possível carregar o usuário
+      </h3>
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+      @if (correlationId(); as supportId) {
+        <details>
+          <summary>
+            Informações para suporte
+          </summary>
+
+          <p>
+            Código de correlação:
+            <code>{{ supportId }}</code>
+          </p>
+        </details>
+      }
+
+      <button
+        type="button"
+        (click)="retry()">
+        Tentar novamente
+      </button>
+    </section>
+  } @else if (user(); as currentUser) {
+    @if (successMessage(); as message) {
+      <div
+        class="user-details__success"
+        role="status"
+        aria-live="polite">
+        <strong>Operação concluída</strong>
+        <span>{{ message }}</span>
+      </div>
+    }
+
+    <div class="user-details__layout">
+      <article class="user-details__profile">
+        <div class="user-details__identity">
+          @if (shouldShowImage()) {
+            <img
+              [src]="currentUser.profileImageUrl"
+              [alt]="
+                'Foto de perfil de ' +
+                currentUser.username
+              "
+              (error)="markImageAsFailed()">
+          } @else {
+            <span
+              class="user-details__avatar"
+              aria-hidden="true">
+              {{ getInitial(currentUser.username) }}
+            </span>
+          }
+
+          <div>
+            <h3>
+              {{ currentUser.username }}
+            </h3>
+
+            <a
+              class="user-details__email"
+              [href]="'mailto:' + currentUser.email">
+              {{ currentUser.email }}
+            </a>
+          </div>
+        </div>
+
+        <dl class="user-details__information">
+          <div>
+            <dt>Status</dt>
+
+            <dd>
+              <app-admin-user-status-badge
+                [status]="currentUser.status" />
+            </dd>
+          </div>
+
+          <div>
+            <dt>Identificador</dt>
+
+            <dd>
+              <code>{{ currentUser.id }}</code>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Criado em</dt>
+
+            <dd>
+              <time
+                [attr.datetime]="currentUser.createdAt">
+                {{
+                  currentUser.createdAt
+                    | date:'dd/MM/yyyy HH:mm'
+                }}
+              </time>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Atualizado em</dt>
+
+            <dd>
+              <time
+                [attr.datetime]="currentUser.updatedAt">
+                {{
+                  currentUser.updatedAt
+                    | date:'dd/MM/yyyy HH:mm'
+                }}
+              </time>
+            </dd>
+          </div>
+        </dl>
+      </article>
+
+      <aside class="user-details__administration">
+        <section>
+          <p class="user-details__section-label">
+            Permissões
+          </p>
+
+          <h3>
+            Roles do usuário
+          </h3>
+
+          <div class="user-details__roles">
+            @for (
+              role of currentUser.roles;
+              track role
+            ) {
+              <span>
+                {{ translateRole(role) }}
+              </span>
+            }
+          </div>
+
+          <p class="user-details__supporting-text">
+            As roles são definidas pelo backend e não podem ser
+            alteradas nesta área.
+          </p>
+        </section>
+
+        <section class="user-details__action-card">
+          <p class="user-details__section-label">
+            Ação administrativa
+          </p>
+
+          @if (
+            protectedAccountMessage();
+            as protectionMessage
+          ) {
+            <div
+              class="user-details__protected"
+              role="note">
+              <strong>Conta protegida</strong>
+
+              <p>
+                {{ protectionMessage }}
+              </p>
+            </div>
+          } @else if (currentUser.status === 'ACTIVE') {
+            <h3>
+              Banir usuário
+            </h3>
+
+            <p>
+              O usuário perderá acesso às áreas autenticadas.
+              O histórico e as roles serão preservados.
+            </p>
+
+            <button
+              class="user-details__danger-action"
+              type="button"
+              [disabled]="actionInProgress()"
+              (click)="openActionDialog('BAN')">
+              Banir usuário
+            </button>
+          } @else {
+            <h3>
+              Desbanir usuário
+            </h3>
+
+            <p>
+              O acesso autenticado será restaurado, preservando
+              as roles existentes.
+            </p>
+
+            <button
+              class="user-details__primary-action"
+              type="button"
+              [disabled]="actionInProgress()"
+              (click)="openActionDialog('UNBAN')">
+              Desbanir usuário
+            </button>
+          }
+        </section>
+
+        @if (
+          selectedAction();
+          as action
+        ) {
+          @if (user(); as selectedUser) {
+            <app-admin-user-action-dialog
+              [action]="action"
+              [username]="selectedUser.username"
+              [actionInProgress]="actionInProgress()"
+              [errorMessage]="actionError()"
+              (confirmed)="confirmSelectedAction()"
+              (cancelled)="closeActionDialog()" />
+          }
+        }
+      </aside>
+    </div>
+  }
+</section>

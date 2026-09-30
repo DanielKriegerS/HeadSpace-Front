@@ -42,8 +42,7 @@
       class="navigation__link"
       routerLink="/home"
       routerLinkActive="navigation__link--active"
-      ariaCurrentWhenActive="page"
-      cursor="pointer">
+      ariaCurrentWhenActive="page">
       <span
         class="navigation__link-icon"
         aria-hidden="true">
@@ -55,13 +54,32 @@
       }
     </a>
 
+    @if (authStore.isAuthenticated()) {
+      @if (isAdmin()) {
+        <a
+          class="navigation__link"
+          routerLink="/admin/usuarios"
+          routerLinkActive="navigation__link--active"
+          ariaCurrentWhenActive="page">
+          <span
+            class="navigation__link-icon"
+            aria-hidden="true">
+            ⚙
+          </span>
+
+          @if (!isCollapsed()) {
+            <span>Gerenciamento</span>
+          }
+        </a>
+      }
+    }
+
     @if (!authStore.isAuthenticated()) {
       <a
         class="navigation__link"
         routerLink="/login"
         routerLinkActive="navigation__link--active"
-        ariaCurrentWhenActive="page"
-        cursor="pointer">
+        ariaCurrentWhenActive="page">
         <span
           class="navigation__link-icon"
           aria-hidden="true">

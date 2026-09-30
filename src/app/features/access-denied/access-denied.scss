@@ -1,0 +1,81 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.access-denied {
+  display: grid;
+  min-height: 100vh;
+  padding: 1.5rem;
+  place-items: center;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(233, 168, 198, 0.28),
+      transparent 28rem
+    ),
+    var(--hs-color-background);
+}
+
+.access-denied__card {
+  width: min(100%, 35rem);
+  padding: clamp(2rem, 5vw, 4rem);
+
+  text-align: center;
+
+  background-color: var(--hs-color-surface);
+  border: 1px solid var(--hs-color-border);
+  border-radius: var(--hs-radius-lg);
+  box-shadow: var(--hs-shadow-md);
+}
+
+.access-denied__code {
+  margin: 0 0 0.5rem;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 12vw, 7rem);
+  font-weight: 700;
+  line-height: 1;
+
+  color: var(--hs-color-pink-400);
+}
+
+.access-denied h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 500;
+
+  color: var(--hs-color-purple-950);
+}
+
+.access-denied p:not(.access-denied__code) {
+  margin: 1.25rem auto 0;
+  line-height: 1.7;
+  color: var(--hs-color-text-secondary);
+}
+
+.access-denied__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 3rem;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+
+  font-weight: 700;
+
+  color: var(--hs-color-cream-100);
+  text-decoration: none;
+
+  background-color: var(--hs-color-purple-800);
+  border-radius: 999px;
+}
+
+.access-denied__action:hover {
+  color: var(--hs-color-purple-950);
+  background-color: var(--hs-color-pink-400);
+}

@@ -16,6 +16,27 @@ export const routes: Routes = [
         .then(m => m.Home)
         },
         {
+        path: 'acesso-negado',
+        loadComponent: () =>
+        import(
+        './features/access-denied/access-denied'
+        ).then((module) => module.AccessDenied)
+        },
+        {
+        path: 'admin',
+        loadChildren: () =>
+        import(
+        './features/administration/administration.routes'
+        ).then(
+        (module) => module.administrationRoutes
+        )
+        },
+        {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home'
+        },
+        {
         path: '**',
         redirectTo: 'home'
     }

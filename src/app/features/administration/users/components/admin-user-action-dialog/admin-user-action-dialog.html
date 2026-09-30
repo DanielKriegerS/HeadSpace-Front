@@ -1,0 +1,75 @@
+<dialog
+  #dialog
+  class="user-action-dialog"
+  aria-labelledby="user-action-dialog-title"
+  aria-describedby="user-action-dialog-description"
+  (cancel)="onNativeCancel($event)"
+  (click)="onBackdropClick($event)">
+
+  <section class="user-action-dialog__content">
+    <header>
+      <p class="user-action-dialog__eyebrow">
+        Ação administrativa
+      </p>
+
+      <h2 id="user-action-dialog-title">
+        {{ title }}
+      </h2>
+    </header>
+
+    <div id="user-action-dialog-description">
+      @if (isBanAction) {
+        <p>
+          O usuário
+          <strong>{{ username() }}</strong>
+          perderá acesso às áreas autenticadas da HeadSpace.
+          O histórico e as roles serão preservados.
+        </p>
+      } @else {
+        <p>
+          O acesso autenticado do usuário
+          <strong>{{ username() }}</strong>
+          será restaurado, preservando as roles existentes.
+        </p>
+      }
+    </div>
+
+    @if (errorMessage(); as actionError) {
+      <div
+        class="user-action-dialog__error"
+        role="alert"
+        aria-live="assertive">
+        {{ actionError }}
+      </div>
+    }
+
+    <footer class="user-action-dialog__actions">
+      <button
+        #cancelButton
+        class="user-action-dialog__cancel"
+        type="button"
+        [disabled]="actionInProgress()"
+        (click)="cancel()">
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        [class.user-action-dialog__confirm--danger]="
+          isBanAction
+        "
+        [class.user-action-dialog__confirm--restore]="
+          !isBanAction
+        "
+        [disabled]="actionInProgress()"
+        (click)="confirm()">
+
+        @if (actionInProgress()) {
+          Processando...
+        } @else {
+          {{ confirmationLabel }}
+        }
+      </button>
+    </footer>
+  </section>
+</dialog>

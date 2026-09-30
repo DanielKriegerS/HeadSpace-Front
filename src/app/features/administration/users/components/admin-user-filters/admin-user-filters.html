@@ -1,0 +1,95 @@
+<form
+  class="user-filters"
+  [formGroup]="form"
+  (submit)="$event.preventDefault()">
+
+  <div class="user-filters__search">
+    <label for="admin-user-search">
+      Buscar usuário
+    </label>
+
+    <input
+      id="admin-user-search"
+      type="search"
+      formControlName="search"
+      placeholder="Username ou e-mail"
+      autocomplete="off">
+  </div>
+
+  <div>
+    <label for="admin-user-status">
+      Status
+    </label>
+
+    <select
+      id="admin-user-status"
+      formControlName="status">
+      <option value="">
+        Todos
+      </option>
+
+      <option value="ACTIVE">
+        Ativo
+      </option>
+
+      <option value="BANNED">
+        Bloqueado
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="admin-user-role">
+      Role
+    </label>
+
+    <select
+      id="admin-user-role"
+      formControlName="role">
+      <option value="">
+        Todas
+      </option>
+
+      <option value="ROLE_USER">
+        Leitor
+      </option>
+
+      <option value="ROLE_AUTHOR">
+        Autor
+      </option>
+
+      <option value="ROLE_ADMIN">
+        Administrador
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="admin-user-page-size">
+      Por página
+    </label>
+
+    <select
+      id="admin-user-page-size"
+      formControlName="size">
+      <option [ngValue]="10">
+        10
+      </option>
+
+      <option [ngValue]="20">
+        20
+      </option>
+
+      <option [ngValue]="50">
+        50
+      </option>
+    </select>
+  </div>
+
+  <button
+    class="user-filters__clear"
+    type="button"
+    (click)="clearFilters()">
+    Limpar filtros
+  </button>
+</form>

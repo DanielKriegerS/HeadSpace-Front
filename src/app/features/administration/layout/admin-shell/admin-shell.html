@@ -1,0 +1,32 @@
+<div class="admin-shell">
+  <aside
+    class="admin-shell__navigation"
+    aria-label="Navegação administrativa">
+
+    <div class="admin-shell__heading">
+      <p>Administração</p>
+
+      <h1>HeadSpace</h1>
+    </div>
+
+    <nav>
+      <a
+        routerLink="/admin/usuarios"
+        routerLinkActive="admin-shell__link--active"
+        ariaCurrentWhenActive="page">
+        <span aria-hidden="true">♙</span>
+        <span>Usuários</span>
+      </a>
+    </nav>
+
+    <a
+      class="admin-shell__back"
+      routerLink="/home">
+      Voltar ao HeadSpace
+    </a>
+  </aside>
+
+  <main class="admin-shell__content">
+    <router-outlet />
+  </main>
+</div>

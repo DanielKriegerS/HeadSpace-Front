@@ -3,6 +3,41 @@
   description="Entre para acessar sua experiência pessoal na plataforma.">
 
   <section class="login">
+    @if (loginError(); as authenticationError) {
+      <section
+        class="login__error"
+        role="alert"
+        aria-live="assertive"
+        aria-labelledby="login-error-title">
+
+        <div class="login__error-content">
+          <span
+            class="login__error-symbol"
+            aria-hidden="true">
+            !
+          </span>
+
+          <div>
+            <h2 id="login-error-title">
+              {{ authenticationError.title }}
+            </h2>
+
+            <p>
+              {{ authenticationError.message }}
+            </p>
+          </div>
+        </div>
+
+        <button
+          class="login__error-dismiss"
+          type="button"
+          aria-label="Fechar mensagem de autenticação"
+          (click)="dismissError()">
+          Fechar
+        </button>
+      </section>
+    }
+
     <button
       class="login__google-button"
       type="button"

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { AuthStore } from '../../auth/auth.store';
 import { AuthService } from '../../auth/auth.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -15,6 +15,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class Navigation {
   readonly authStore = inject(AuthStore);
   readonly isCollapsed = signal(false);
+
+  readonly isAdmin = computed(() =>
+    this.authStore
+      .currentUser()
+      ?.roles.includes('ROLE_ADMIN') ?? false
+  );
 
   private readonly authService = inject(AuthService);
 

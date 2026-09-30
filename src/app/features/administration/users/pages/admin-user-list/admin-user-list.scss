@@ -1,0 +1,235 @@
+:host {
+  display: block;
+}
+
+.admin-users {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.admin-users__header {
+  display: flex;
+  gap: 2rem;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.admin-users__eyebrow {
+  margin: 0 0 0.5rem;
+
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: var(--hs-color-purple-500);
+}
+
+.admin-users__header h2 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 1.05;
+
+  color: var(--hs-color-purple-950);
+}
+
+.admin-users__header p:not(.admin-users__eyebrow) {
+  max-width: 45rem;
+  margin: 1rem 0 0;
+  line-height: 1.7;
+  color: var(--hs-color-text-secondary);
+}
+
+.admin-users__total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  color: var(--hs-color-text-secondary);
+}
+
+.admin-users__total strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1;
+
+  color: var(--hs-color-purple-800);
+}
+
+.admin-users__loading {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 16rem;
+
+  color: var(--hs-color-text-secondary);
+}
+
+.admin-users__spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  border: 0.1875rem solid rgba(142, 93, 135, 0.2);
+  border-top-color: var(--hs-color-purple-800);
+  border-radius: 50%;
+
+  animation: admin-users-spin 700ms linear infinite;
+}
+
+.admin-users__error,
+.admin-users__empty {
+  padding: clamp(2rem, 5vw, 4rem);
+
+  text-align: center;
+
+  background-color: var(--hs-color-surface);
+  border: 1px solid var(--hs-color-border);
+  border-radius: var(--hs-radius-md);
+  box-shadow: var(--hs-shadow-sm);
+}
+
+.admin-users__error h3,
+.admin-users__empty h3 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.75rem;
+
+  color: var(--hs-color-purple-950);
+}
+
+.admin-users__error p,
+.admin-users__empty p {
+  margin: 1rem auto 0;
+  line-height: 1.7;
+  color: var(--hs-color-text-secondary);
+}
+
+.admin-users__error details {
+  max-width: 32rem;
+  margin: 1.25rem auto 0;
+
+  color: var(--hs-color-text-secondary);
+}
+
+.admin-users__error summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.admin-users__error code {
+  user-select: all;
+}
+
+.admin-users__error button {
+  cursor: pointer;
+
+  min-height: 2.875rem;
+  margin-top: 1.5rem;
+  padding: 0.625rem 1.25rem;
+
+  font-weight: 700;
+
+  color: var(--hs-color-cream-100);
+  background-color: var(--hs-color-purple-800);
+
+  border: 0;
+  border-radius: 999px;
+}
+
+.admin-users__empty-symbol {
+  display: block;
+
+  margin-bottom: 1rem;
+
+  font-size: 3rem;
+  color: var(--hs-color-pink-400);
+}
+
+.admin-users__pagination {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem;
+
+  color: var(--hs-color-text-secondary);
+  background-color: var(--hs-color-surface);
+
+  border: 1px solid var(--hs-color-border);
+  border-radius: var(--hs-radius-md);
+}
+
+.admin-users__pagination button {
+  cursor: pointer;
+
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+
+  font-weight: 700;
+
+  color: var(--hs-color-purple-800);
+  background-color: transparent;
+
+  border: 1px solid var(--hs-color-purple-500);
+  border-radius: var(--hs-radius-sm);
+}
+
+.admin-users__pagination button:hover:not(:disabled) {
+  color: var(--hs-color-cream-100);
+  background-color: var(--hs-color-purple-800);
+}
+
+.admin-users__pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+@keyframes admin-users-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .admin-users__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-users__total {
+    align-items: flex-start;
+  }
+
+  .admin-users__pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .admin-users__pagination span {
+    order: -1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .admin-users__pagination button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-users__spinner {
+    animation-duration: 1.5s;
+  }
+}
